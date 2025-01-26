@@ -142,6 +142,8 @@ Top row: Green, Yellow, Orange.
 
 Bottom row: Red, Brown, Black. 
 
+![IDU back](images/idu.jpg?raw=true "Indoor Unit (IDU)")
+
 
 **Positioning the antenna**
 
