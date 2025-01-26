@@ -1,7 +1,7 @@
 # Travler_Rotor
 Multi-axis antenna rotor using Winegard "Trav'ler" satellite dish
 
-Gabe Emerson / Saveitforparts 2005. Email:gabe@saveitforparts.com
+Gabe Emerson / Saveitforparts 2025. Email:gabe@saveitforparts.com
 
 Video demo of version 1: https://youtu.be/X1hnReHepFI 
 
