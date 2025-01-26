@@ -168,7 +168,7 @@ the Trav'ler is as follows:
 
 Some of these steps could be combined with Satdump, which can also do the rotor control, recording, and live decoding. 
 
-Personally I like to track the current satellite in N2yo.com alongside the other windows, just to see where it is. I 
+Personally I like to track the current satellite in N2YO.com alongside the other windows, just to see where it is. I 
 also have a security camera aimed at my dish so I can watch it moving from my computer. 
 
 ![S-Band Ground control setup](images/ground_control.jpg?raw=true "Ground control setup")
