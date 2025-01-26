@@ -137,7 +137,9 @@ I have not encountered this myself, as my dish does not have GPS, but it's somet
 IDU / ODU cable
 
 If the cable between the IDU and ODU is cut (common for used units pulled from RVs), the wires to the IDU should be:
+
 Top row: Green, Yellow, Orange.
+
 Bottom row: Red, Brown, Black. 
 
 
