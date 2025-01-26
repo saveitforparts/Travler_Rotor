@@ -1,0 +1,5 @@
+#Package requirements for carryout_rotor.py
+
+pyserial
+regex
+socket
