@@ -53,12 +53,12 @@ I use a Microcircuits ZX60-242LN-S+ Low Noise Amplifier connected to my helical 
 
 Interfacing with the Trav'ler serial port requires an RS-485 cable and 6-pin phone connector (RJ-25). I have included a
 photo of the USB adapter chain that I use. It includes a USB-to-Serial cable, a DTECH RS232-to-RS485 converter, and an RJ-25 jack wired as follows (looking at the bottom of the phone connector with the tip up):
--Pin 1: GND
--Pin 2: T/R-
--Pin 3: T/R+
--Pin 4: RXD-
--Pin 5: RXD+
--Pin 6: Not used
+- Pin 1: GND
+- Pin 2: T/R-
+- Pin 3: T/R+
+- Pin 4: RXD-
+- Pin 5: RXD+
+- Pin 6: Not used
 
 ![USB to serial to RS-485 to RJ-25 cable](images/cable1.jpg?raw=true "Cable for Winegard console")
 
