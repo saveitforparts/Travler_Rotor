@@ -21,6 +21,9 @@ a GPS search may not respond to the init code that looks for a "NoGPS" flag from
 
 This code is experimental and will probably void the warranty on any antenna you try it with. Use at your own risk! 
 
+![Winegard Trav'ler](images/dish.jpg?raw=true "Winegard Trav'ler")
+
+
 **Applications:**
 
 This antenna works as a general-purpose az/el rotor, and could have skew added to the code if desired. I have been using
