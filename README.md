@@ -144,7 +144,7 @@ If the stow command / feature is used, North / "Back" is the position at which t
 
 **Setting up rotor in Gpredict**
 
-In Gpredict's rotor settings, you will want to create a new rotor at 127.0.0.0:4533, with 0->180->360 mode, minimum elevation
+In Gpredict's rotor settings, you will want to create a new rotor at 127.0.0.1:4533, with 0->180->360 mode, minimum elevation
 of 15 and maximum elevation of 90. 
 
 **Example setup and use procedure**
