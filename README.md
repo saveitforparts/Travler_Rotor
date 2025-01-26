@@ -62,7 +62,7 @@ Pin 6: Not used
 
 ![USB to serial to RS-485 to RJ-25 cable](images/cable1.jpg?raw=true "Cable for Winegard console")
 
-![Pinout for RS-485 to RJ-25 cable](images/cable1.jpg?raw=true "Pins for RS-485 to RJ-25 cable")
+![Pinout for RS-485 to RJ-25 cable](images/cable2.jpg?raw=true "Pins for RS-485 to RJ-25 cable")
 
 
 **Software Requirements:**
