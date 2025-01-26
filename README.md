@@ -176,7 +176,7 @@ the Trav'ler is as follows:
 - Stop recording and disengage the rotor when the signal gets too low to be usable. 
 - Run the baseband recording through Satdump. 
 
-Some of these steps could be combined with Satdump, which can also do the rotor control, recording, and live decoding. 
+Some of these steps could be combined with Satdump, which can also handle the rotor control, recording, and live decoding. 
 
 Personally I like to track the current satellite in N2YO.com alongside the other windows, just to see where it is. I 
 also have a security camera aimed at my dish so I can watch it moving from my computer. 
