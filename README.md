@@ -134,6 +134,12 @@ Some versions of the Trav'ler have a GPS subsystem that assists with acquiring T
 attempting to disable the GPS puts the IDU and ODU in a state where they no longer communicate, effectively bricking the dish.
 I have not encountered this myself, as my dish does not have GPS, but it's something to watch out for. 
 
+IDU / ODU cable
+
+If the cable between the IDU and ODU is cut (common for used units pulled from RVs), the wires to the IDU should be:
+Top row: Green, Yellow, Orange.
+Bottom row: Red, Brown, Black. 
+
 
 **Positioning the antenna**
 
