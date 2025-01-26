@@ -92,7 +92,7 @@ The firmware has a lot of options, not all of which I understand. There are seve
 multiple motor-related submenus that all behave slightly differently. 
 
 
-**Notes on Trav'ler limitations and quirks***
+**Notes on Trav'ler limitations and quirks**
 
 Physical and Firmware limitations:
 
