@@ -105,7 +105,7 @@ When using the "g" method to operate the motors, the dish will halt/abort moveme
 character) comes in. 
 
 When using the "a" method to operate motors, the dish will wait until the current motor stops moving before accepting a new 
-motor command (in the case of the AZ and EL motors anyway. I believe the Skew / SK motor can run simultaneously with one
+motor command (in the case of the AZ and EL motors. I believe the Skew / SK motor can run simultaneously with one
 of the others).  
 
 Initial Calibration:
