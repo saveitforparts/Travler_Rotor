@@ -41,6 +41,9 @@ has some speed and motion limits which might not make it suitable for every appl
 The stock LNB should be replaced with a feed appropriate to whatever frequency you intend to use. For example, I use 3-D 
 printed helical feeds designed by DerekSGC for L and S-band. These can be found at https://www.thingiverse.com/thing:4980180
 
+![Helical Feed](images/feed.jpg?raw=true "Helical Feed")
+
+
 The internal coax cable should not be used unless you disable / bypass the onboard power injector. Otherwise 14-18VDC will
 be supplied to the feed/LNA, which will kill 5VDC equipment. Also the internal wiring is likely the wrong impedance for SDR use. 
 
@@ -55,6 +58,11 @@ Pin 3: T/R+
 Pin 4: RXD-
 Pin 5: RXD+
 Pin 6: Not used
+
+![USB to serial to RS-485 to RJ-25 cable](images/cable1.jpg?raw=true "Cable for Winegard console")
+
+![Pinout for RS-485 to RJ-25 cable](images/cable1.jpg?raw=true "Pins for RS-485 to RJ-25 cable")
+
 
 **Software Requirements:**
 
@@ -161,6 +169,9 @@ Some of these steps could be combined with Satdump, which can also do the rotor 
 
 Personally I like to track the current satellite in N2yo.com alongside the other windows, just to see where it is. I 
 also have a security camera aimed at my dish so I can watch it moving from my computer. 
+
+![S-Band Ground control setup](images/ground_control.jpg?raw=true "Ground control setup")
+
 
 
 
