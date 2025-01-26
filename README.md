@@ -153,8 +153,8 @@ Your procedure may differ depending on the software and setup you use. My basic 
 the Trav'ler is as follows:
 
 - Connect serial cable to Trav'ler's IDU, run "./init.sh" on computer
-- Power on IDU. Trav'ler will initialize and home, then init scrip will jump to rotor script. 
-- Power on the first LNA with exteranl bias-tee
+- Power on IDU. Trav'ler will initialize and home, then init script will jump to rotor script. 
+- Power on the first LNA with external bias-tee
 - Open SDR++, turn on SDR and activate second LNA with SDR's bias-tee function
 - Set gains as desired (may need to max these out for faint signals)
 - Keep onboard amp (for HackRF One) turned off. 
