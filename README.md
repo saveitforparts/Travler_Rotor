@@ -85,7 +85,7 @@ Once connected to the firmware, some basic commands are:
 - "g" (from within motor submenu): go to a specified azimuth/elevation/skew (Some firmware has a typo listing az/sk/el). 
 - "q": exit the current submenu
 - "os": Enter the OS submenu
-- "tasks": list running tasks
+- "tasks": list running tasks (from within os submenu)
 - "kill <name of task>": Kill a task (such as "kill Search" to disable the TV satellite search movement routine). 
 
 The firmware has a lot of options, not all of which I understand. There are several ways to do various things, including
