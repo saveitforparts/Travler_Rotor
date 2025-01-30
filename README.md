@@ -1,190 +1,151 @@
-# Travler_Rotor
-Multi-axis antenna rotor using Winegard "Trav'ler" satellite dish
+#Light Duty Two-Axis Az/El rotor using portable "Carryout" satellite antenna. 
 
-Gabe Emerson / Saveitforparts 2025. Email: gabe@saveitforparts.com
+Gabe Emerson / Saveitforparts 2024. Email: gabe@saveitforparts.com
 
-Video demo of version 1: https://youtu.be/X1hnReHepFI 
-
-Video demo of version 2: (in progress)
+Video demo: 
 
 **Introduction:**
 
-This code acts as an interface between Gpredict / Hamlib Rotctld and a Winegard brand "Trav'ler" satellite dish. 
-These dishes are designed for vehicle use, but can be mounted to any stable surface. They can sometimes be found
-2nd-hand from used RV dealerships, Craigslist / Facebook marketplace / etc.
+This code controls a portable satellite antenna over RS-485 using serial commands. 
+This is based roughly on my Carryout-Radio-Telescope project, adapted as a satellite
+tracking rotor. 
 
-The Winegard Trav'ler consists of an Outdoor Unit (ODU) or motorized "turret" with a standard Ku-band TV dish attached,
-and an Indoor Unit (IDU), or small black box that has the power input and display screen. You will also need a DC power
-supply, if the original is missing then something around 48-52VDC should work. 
+The carryout_rotor.py program acts as an interface between The Winegard Carryout and
+Gpredict (or possibly other hamlib / rotctld compatible programs). Commands to get
+and set position are converted to Winegard firmware commands. Currently only "p", 
+"P <X Y>", and "S" are implemented. 
 
-Note there are several versions of the Trav'ler dish and this code has only been tested with the LG-2112. Versions with 
-a GPS search may not respond to the init code that looks for a "NoGPS" flag from the firmware.
-
-This code is experimental and will probably void the warranty on any antenna you try it with. Use at your own risk! 
-
-![Winegard Trav'ler](images/dish.jpg?raw=true "Winegard Trav'ler")
+Please note that the author is not an expert in Python, Linux, satellites, or 
+radio theory! This code is very experimental, amateur, and not optimized. It will
+likely void any warranty your Carryout antenna may have. There are probably better,
+faster, and more efficient ways	to do some of the functions and calculations in 
+the code. Please feel free to fix, improve, or add to anything (If you do, I'd
+love to hear what you did and how it worked!)    
 
 
 **Applications:**
 
-This antenna works as a general-purpose az/el rotor, and could have skew added to the code if desired. I have been using
-my Trav'ler dish as an S-band LEO weather satellite tracker. It can also be used to point at GEO satellites, which is closer
-to the original intended use. 
+- Manually aiming a Winegard Carryout antenna at specific coordinates
+- Automatically tracking low-earth-orbit satellites with Gpredict
+- Tracking satellites on different frequencies (replace stock Ku-band hardware)
+- Tracking drones or aircraft (not tested)
 
-The code could be adapted for other purposes like sky surveys, Wifi or other RF surveys, etc. See my other Github projects
-for some example sky surveys / radio telescope implementations using similar antennas. 
-
-This could possibly also be used for DIY radar applications, drone tracking, point-to-point Wifi, etc. Note that the dish
-has some speed and motion limits which might not make it suitable for every application. 
 
 **Hardware Requirements:**
 
-The stock LNB should be replaced with a feed appropriate to whatever frequency you intend to use. For example, I use 3-D 
-printed helical feeds designed by DerekSGC for L and S-band. These can be found at https://www.thingiverse.com/thing:4980180
+This code has been developed and tested with a Winegard "Carryout" portable
+satellite antenna. Specifically, a 2003 version running HandEra HAL 1.00.065
+firmware. There are other variations and versions of this hardware, such as the
+Carryout G2 and G3. I have not tested it with all models, but the firmware and 
+commands are very similar across Winegard products. 
 
-![Helical Feed](images/feed.jpg?raw=true "Helical Feed")
+You will need to remove the plastic radome from the top of the antenna to access
+the console port and change or modify the receiver feed.
 
+In addition to the antenna, you will need an RS-232 to RS-485 adapter, custom
+RJ-25 cable, and USB-to-Serial adapter. I used a "DTECH RS232 to RS485" converter
+that includes screw terminals. The DB9 end is connected to my USB serial cable,
+and the wiring terminals are connected to an RJ-25 cable (6-conductor phone cord)
+as follows:
 
-The internal coax cable should not be used unless you disable / bypass the onboard power injector. Otherwise 14-18VDC will
-be supplied to the feed/LNA, which will kill 5VDC equipment. Also the internal wiring is likely the wrong impedance for SDR use. 
+Looking at the bottom (pin side) of the RJ-25, with end of cable up, the wires
+from left to right are:
 
-I use a Microcircuits ZX60-242LN-S+ Low Noise Amplifier connected to my helical feed, powered from a 5v USB source. Below that is an RTL-SDR Wideband LNA, powered by my SDR's bias-tee. I use a HackRF One for S-band. I keep the HackRF's onboard amp turned off to minimize noise. This seems to work well for strong satellites like NOAA and DMSP, but not for weaker ones like HINODE. The stock
-33"x23" dish is probably too small for weaker signals. It might be possible to add a slightly larger reflector, but YMMV. 
+Pin 1: GND
+Pin 2: T/R-
+Pin 3: T/R+
+Pin 4: RXD-
+Pin 5: RXD+
+Pin 6: Not connected
 
-Interfacing with the Trav'ler serial port requires an RS-485 cable and 6-pin phone connector (RJ-25). I have included a
-photo of the USB adapter chain that I use. It includes a USB-to-Serial cable, a DTECH RS232-to-RS485 converter, and an RJ-25 jack wired as follows (looking at the bottom of the phone connector with the tip up):
-- Pin 1: GND
-- Pin 2: T/R-
-- Pin 3: T/R+
-- Pin 4: RXD-
-- Pin 5: RXD+
-- Pin 6: Not used
+(See cable1.jpb and cable2.jpg in the images folder)
 
-![USB to serial to RS-485 to RJ-25 cable](images/cable1.jpg?raw=true "Cable for Winegard console")
+Thanks to Kyle from Kismet Emergency Communications for providing the RS-485 info! 
 
-![Pinout for RS-485 to RJ-25 cable](images/cable2.jpg?raw=true "Pins for RS-485 to RJ-25 cable")
+You will also need a new antenna feed if you plan to use this system with anything
+other than Ku band. I removed the reflector and LNB and replaced them with a 3D-
+printed helicone antenna for L-band (https://www.thingiverse.com/thing:6436342).
+The helicone is connected to a Nooelec SAWbird+GOES LNA, powered via RTL-SDR 
+bias-tee. 
+ 
 
+**Notes on power supply and auto-scan behavior**
 
-**Software Requirements:**
+The Winegard Carryout used for testing had a proprietary 12v DC jack, I replaced 
+this with a standard barrel jack. The on-board DC could be stepped down to run an
+embedded system or SBC if desired. Power of at least 1A seems best. 
 
-This code was developed for Python 3. The code uses serial, socket, and regex. If not already installed, use "pip install -r requirements.txt"
+When first powered on, the Carryout antenna goes through a series of calibration and
+automatic satellite search movements. This can take approximately 10-15 minutes
+to complete, depending on DIP switch settings on the control board. It may also 
+produce some alarming grinding sounds from the stepper motors and gearing. Winegard
+apparently did not bother to install limit switches, and uses motor stall to 
+determine drive limits. 
 
-If your computer uses a different serial port for the RS-485 adapter (such as COM3 for Windows or /dev/ttyACM0) you will need
-to edit line 17 of travler_rotor.py and line 10 of travler_init.py
-
-**Trav'ler Dish Basic Firmware Info**
-
-You can interact with the Trav'ler firmware directly by connecting the RS-485 cable chain to the "Factory Only" port on the 
-IDU. Then run "screen /dev/ttyUSB0 57600" (or appropriate port, you may need to check lsusb or equivalent command on your
-local computer). 
-
-Once connected to the firmware, some basic commands are:
-- "?": List available commands
-- "mot": enter the motor submenu
-- "a" (from within the motor submenu): Show current dish position, or set desired position by specifying motor # and degrees. 
-- "g" (from within motor submenu): go to a specified azimuth/elevation/skew (Some firmware has a typo listing az/sk/el). 
-- "q": exit the current submenu
-- "os": Enter the OS submenu
-- "tasks": list running tasks (from within os submenu)
-- "kill [name of task]": Kill a task (such as "kill Search" to disable the TV satellite search movement routine). 
-
-The firmware has a lot of options, not all of which I understand. There are several ways to do various things, including
-multiple motor-related submenus that all behave slightly differently. 
-
-
-**Notes on Trav'ler limitations and quirks**
-
-Physical and Firmware limitations:
-
-The Tra'ler can physically move past 0 degrees and 90 degrees in elevation, but the firmware doesn't like to go below 15 
-degrees. This is likely a built-in safety feature to keep it from impacting other objects on an RV roof. I have put in a
-soft-coded limit of 15 degrees elevation in my code, and I recommend telling Gpredict that the rotor's minimum elevation is
-15 degrees. Max elevation seems to be about 95 degrees, but I use 90 as the max in Gpredict. 
-
-When using the "g" method to operate the motors, the dish will halt/abort movement if a new command (or any keystroke / 
-character) comes in. 
-
-When using the "a" method to operate motors, the dish will wait until the current motor stops moving before accepting a new 
-motor command (in the case of the AZ and EL motors. I believe the Skew / SK motor can run simultaneously with one
-of the others).  
-
-Initial Calibration:
-
-When first powered on, the Trav'ler goes through a series of calibration movements to establish position and wrap limits. 
-Afterwards, the default behavior is to search for a TV satellite, which for our purposes is a waste of time. The travler_init.py
-script connects to the dish and waits for the calibration to complete, then kills the search in the firmware's task manager.
-
-Stowing:
-
-The Trav'ler dish has a built-in "stow" command which is intended to fold it flat against the roof of an RV or trailer.
-I have not used this command in my code and I tend to ignore it. The modified L-band feed that replaced my LNB would
-likely not survive a stow procedure. 
-
-Cable Wrap:
-
-The dish also has a cable wrap system that prevents it from tangling its own internal wiring. This seems to be a somewhat variable position, but is most frequently at 455 degrees. Thus the dish can spin from 0 degrees, past 360, but will halt and reverse to the other side of the wrap position upon hitting its limit. The wrap position can be found with the "a" command in the firmware's "mot" submenu. I usually address this by using Gpredict to manually run the dish through the range of motion required for the upcoming pass. This helps ensure it is on the correct side of the wrap position. If the wrap position is near the start or end of a track, I will simply disengage Gpredict during that part. 
-
-Meridian Crossing:
-
-The dish will cross the 0/360 position during tracking *most of the time. I have sometimes encountered issues with this where the dynamic wrap position gets set to 0. In these cases, the dish will approach 0, then stop, reverse direction and come at the new position from the other side. This can spoil a live track of a satellite. It's possible there's a way to avoid or address this. I just never got around to implementing it and don't encounter the issue often enough. 
-
-Possible GPS issue:
-
-Some versions of the Trav'ler have a GPS subsystem that assists with acquiring TV satellites. Other users have reported that
-attempting to disable the GPS puts the IDU and ODU in a state where they no longer communicate, effectively bricking the dish.
-I have not encountered this myself, as my dish does not have GPS, but it's something to watch out for. 
-
-IDU / ODU cable
-
-If the cable between the IDU and ODU is cut (common for used units pulled from RVs), the wires to the IDU should be:
-
-Top row: Green, Yellow, Orange.
-
-Bottom row: Red, Brown, Black. 
-
-![IDU back](images/idu.jpg?raw=true "Indoor Unit (IDU)")
+Other users have reported that setting all DIP switches to "off" (up) disabled the 
+search mode, but that did not work for me. There may be a setting in the firmware to 
+disable the search, but I also have not found that (disabling tracking in the "nvs"
+firmware submenu also disables the position calibration, which we want to retain for 
+accurate aiming). 
 
 
-**Positioning the antenna**
+**Package Requirements:**
 
-The baseplate of the Winegard Trav'ler is marked with arrows and the word "BACK" at the 0/360-degree position (North). 
-Typically I place my dish so that these arrows are aligned with true North. If using the dish as a portable unit, not bolted
-to a roof or vehicle, make sure to secure the base so that the dish cannot wiggle or fall over. 
-If the stow command / feature is used, North / "Back" is the position at which the dish will "faceplant" onto the ground/roof. 
-
-**Setting up rotor in Gpredict**
-
-In Gpredict's rotor settings, you will want to create a new rotor at 127.0.0.1:4533, with 0->180->360 mode, minimum elevation
-of 15 and maximum elevation of 90. 
-
-**Example setup and use procedure**
-
-Your procedure may differ depending on the software and setup you use. My basic procedure for tracking a LEO satellite with
-the Trav'ler is as follows:
-
-- Connect serial cable to Trav'ler's IDU, run "./init.sh" on computer
-- Power on IDU. Trav'ler will initialize and home, then init script will jump to rotor script. 
-- Power on the first LNA with external bias-tee
-- Open SDR++, turn on SDR and activate second LNA with SDR's bias-tee function
-- Set gains as desired (may need to max these out for faint signals)
-- Keep onboard amp (for HackRF One) turned off. 
-- Set Gpredict Antenna Control for desired satellite, select the correct rotor. 
-- If rotor script is not already running and waiting for Gpredict, run "./rotor.sh"
-- Prep SDR to record with desired bandwidth, baseband, int16
-- Activate tracking and engage rotor in Gpredict. 
-- Record the pass (I like to keep an eye on the dish in case it does anything weird). 
-- Stop recording and disengage the rotor when the signal gets too low to be usable. 
-- Run the baseband recording through Satdump. 
-
-Some of these steps could be combined with Satdump, which can also handle the rotor control, recording, and live decoding. 
-
-Personally I like to track the current satellite in N2YO.com alongside the other windows, just to see where it is. I 
-also have a security camera aimed at my dish so I can watch it moving from my computer. 
-
-![S-Band Ground control setup](images/ground_control.jpg?raw=true "Ground control setup")
+carryout_rotor.py uses pyserial, regex, and socket.
+They can be installed individually or by running "pip install -r requirements.txt"
 
 
+**Setting up / testing Carryout console:**
+
+To connect to a Carryout antenna with RS-485, you will need the cable described above
+under Hardware Requirements. 
+
+To connect to the serial console on the antenna, run "screen /dev/ttyUSB0 57600" (or 
+appropriate port) on Linux, or use a Windows serial terminal to connect to the usb 
+device (typically com3 or similar). You will initially get a blank screen. Typing "?"
+should return a menu of available commands and submenus. Typing "q" exits the current
+submenu and returns to the root menu.
+
+Some submenus of interest include:
+target: send dish to desired azimuth / elevation coordinates
+motor: manual motor movements and settings
+dvb: Get signal info from the stock LNB (if installed)
+os: List and quit running processes, etc
+
+	
+Note that the console does not accept backspace, so if you make a mistake while typing,
+just hit enter to clear the console. If necessary, close the console or unplug the 
+dish to avoid a motor overrun. 
 
 
-  
+**Positioning the antenna:**
+
+The Carryout antenna uses a 360-degree clockwise coordinate system, with the coax
+/ F connector at approximately 135 degrees. You may have to run some serial console
+commands like "target", "g 0 22" to find the 0 or North position. I marked my dish
+with sharpie once I determined this. 
+		
+Generally I place the dish with the "0" position facing due North.
+
+
+**Using as an Az/El rotor:**
+
+NOTE: If your USB device is other than ttyUSB0, edit line 16 of carryout_rotor.py
+
+Once the dish is connected, powered, and ready on a serial port, run:
+"python3 carryout_rotor.py"
+
+The code will attempt to connect to the serial port and open a socket on localhost, 
+port 4533 (the default for Gpredict). 
+
+In Gpredict's rotor settings, you will want to create a new rotor at 127.0.0.1:4533,
+0->180->360, with minimum elevation 22 and maximum elevation 90 (the Carryout can't
+physically drop below about 22 degrees elevation, other models may have different
+limitations). 
+
+Use Gpredict as normal to track a satellite and click "Engage" to connect to
+carryout_rotor.py. Clicking "engage" a second time to disengage will close the socket,
+the serial connection, and exit the python script (otherwise Gpredict crashes).  
+
+	
 

@@ -73,7 +73,7 @@ while 1:
 			else:
 			    print("AZ or EL not found.")
 			
-			print("Current position: ", current_az, ", ", current_el)
+			print("Current position:", current_az,", ", current_el)
 			
 			response = "{}\n{}\n".format(current_az, current_el) #put az & el into the format Gpredict expects
 			conn.send(response.encode('utf-8')) #send response to Gpredict
@@ -83,7 +83,7 @@ while 1:
 		
 			target_az = float(cmd[1])
 			target_el = float(cmd[2])
-			print('Gpredict requesting move to:', target_az, ', ', target_el)
+			print('Gpredict requesting move to:', target_az,', ', target_el)
 			print('\n')
 			
 			#Set movement a little farther than requested to "leap-frog" over position. 
@@ -113,16 +113,16 @@ while 1:
 				antenna.write(command)
 			
 				#tell Antenna to move to target el
-				if (target_el < 15):  #Trav'ler firmware won't reliably go below 15 degrees with this method
-					target_el = 15
+				#if (target_el < 15):  #Trav'ler firmware won't reliably go below 15 degrees with this method
+				#	target_el = 15
 				command = ('a 1 ' + str(target_el) + '\r').encode('ascii') #move elevation motor
 				antenna.write(command)	
 			
 			else: #Odd numbered step, send EL first
 				
 				#tell Antenna to move to target el
-				if (target_el < 15):  
-					target_el = 15
+				#if (target_el < 15):  
+				#	target_el = 15
 				command = ('a 1 ' + str(target_el) + '\r').encode('ascii') #move elevation motor
 				antenna.write(command)	
 				
