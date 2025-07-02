@@ -5,7 +5,7 @@ Gabe Emerson / Saveitforparts 2025. Email: gabe@saveitforparts.com
 
 Video demo of version 1: https://youtu.be/X1hnReHepFI 
 
-Video demo of version 2: (in progress)
+Video demo of version 2: https://www.youtube.com/watch?v=URJZjo5EcpQ
 
 **Introduction:**
 
